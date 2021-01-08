@@ -1,6 +1,6 @@
 import React from 'react';
-import {BrowserRouter as  Router, Route, Link, Switch} from 'react-router-dom'
-import {Container} from 'react-bootstrap'
+import {BrowserRouter as  Router, Route} from 'react-router-dom'
+import {Navbar, Container} from 'react-bootstrap'
 import HomeScreen from './screens/HomeScreen'
 import DetailScreen from './screens/DetailScreen'
 
@@ -8,19 +8,15 @@ const App = () => {
     return (
 
     <Router>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-            <Link className="navbar-brand" to="/">Proshop</Link>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarColor01">
-            </div>
-        </nav>
+        <Navbar bg="light">
+            <Navbar.Brand href="/">Proshop</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+        </Navbar.Collapse>
+        </Navbar>
         <Container>
-            <Switch>
-                <Route path="/" component={HomeScreen} />
-                <Route path="/products/:id" component={DetailScreen} />
-            </Switch>
+            <Route path="/" exact={true} component={HomeScreen} />
+            <Route path="/products/:id" exact={true} component={DetailScreen} />
         </Container>
         <footer className="container text-center">
             <p>Copyright &copy; 2020</p>
