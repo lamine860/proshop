@@ -18,8 +18,8 @@ const HomeScreen = () => {
         <Row>
         {
             products.map(product => (
-                <Col xs={12} sm={6} md={4} lg={3}>
-                    <Product product={product} key={product.name} />
+                <Col xs={12} sm={6} md={4} lg={3} key={ product.name }>
+                    <Product product={product} />
                 </Col>
             ))
         }
@@ -28,4 +28,4 @@ const HomeScreen = () => {
     );
 }
  
-export default HomeScreen;
+export default HomeScreen

@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"nodemon --exec node backend/server.js\" \"npm --prefix frontend start \""
+    "dev": "concurrently \"nodemon --exec node backend/server.js\" \"npm --prefix frontend start \""
   },
   "dependencies": {
     "dotenv": "^8.2.0",
