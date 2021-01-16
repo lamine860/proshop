@@ -9,9 +9,9 @@ const Product = (props) => {
     const {product} = props
     return (  
     <Card className="mb-2">
-        <Link to={ '/products/' + product.name }><Card.Img variant="top" src={  product.image } /></Link>
+        <Link to={ '/products/' + product._id }><Card.Img variant="top" src={  product.image } /></Link>
         <Card.Body>
-            <Link to={ `/products/${product.name}`}><Card.Title as="div">{ product.name }</Card.Title></Link>
+            <Link to={ `/products/${product._id}`}><Card.Title as="div">{ product.name }</Card.Title></Link>
             <Rating value={ product.rating } text={` ${product.numReviews} reviews`} />
             <Card.Text as="h4">${ product.price }</Card.Text>
         </Card.Body>

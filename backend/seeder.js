@@ -34,16 +34,15 @@ const destroyData = async () => {
         await User.deleteMany()
         await Product.deleteMany()
         console.log('Data destroyed'.red)
-        process.exit(1)
+        process.exit(0)
     }catch(error) {
         console.log(error.message.red.inverse)
         process.exit(1)
     }
 
 }
-console.log('=============', process.argv)
 
-if (process.argv[2] === '-d'){
+if (process.argv[2] === '--drop'){
     destroyData()
 }else{
     importData()

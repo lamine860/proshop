@@ -7,13 +7,14 @@
   "scripts": {
     "dev": "concurrently \"nodemon --exec node backend/server.js\" \"npm --prefix frontend start \"",
     "import:data": "node backend/seeder.js",
-    "destroy:data": "node backend/seeder.js"
+    "destroy:data": "node backend/seeder.js --drop"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
     "mongoose": "^5.11.10"
   },
   "devDependencies": {

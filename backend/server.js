@@ -4,20 +4,21 @@ import colors from 'colors'
 
 import connect from './config/db.js'
 import products from './data/products.js'
+import { ErrorHandler, notFound } from './middleware/ErrorMiddleware.js'
+import productRouter from './routes/productRoute.js'
 
 dotenv.config()
 connect()
 const PORT = process.env.PORT || 5000
 const HOST = process.env.HOST
 const app = express()
-app.get('/api/products', (req, res) => {
-    return res.json(products)
-})
-app.get('/api/products/:name', (req, res) => {
-    const product = products.find(p => p.name === req.params.name)
-    return res.json(product)
-})
 
+//Routes
+app.use('/api/products', productRouter)
+
+
+app.use(notFound)
+app.use(ErrorHandler)
 
 app.listen(PORT, () => {
     console.log(`Server running ${HOST}:${PORT}`)
