@@ -17,7 +17,7 @@ const HomeScreen = () => {
     return (  
         <>
         {
-            loading ? <Loader/> : error ? <Message variant="danger" message={error}/> : (
+            loading ? <Loader/> : error ? <Message variant="danger">{ error }</Message> : (
                 <>
                     <h1>Latest product</h1>
                     <Row>

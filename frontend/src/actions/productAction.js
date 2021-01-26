@@ -17,7 +17,6 @@ export const productDetailAction = (productId) => async (dispatch) => {
     dispatch({type: actionTypes.PRODUCT_DETAIL_REQUEST})
     try {
         const  response =  await axios.get(`${endPoint}/${productId}`)
-        console.log(response.data)
         dispatch({type: actionTypes.PRODUCT_DETAIL_SUCCESS, payload: response.data})
     }catch(error) {
         dispatch({type: actionTypes.PRODUCT_DETAIL_FAIL, payload: error.response && 

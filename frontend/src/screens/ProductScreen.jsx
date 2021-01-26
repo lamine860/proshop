@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Row, Col, Image, ListGroup, Form, Button, Card} from 'react-bootstrap'
@@ -12,6 +12,7 @@ import Message from '../components/common/Message'
 
 const ProductScreen = (props) => {
     const dispatch  = useDispatch()
+    const [qty, setQty] = useState(1)
 
     useEffect(() => {
         dispatch(productDetailAction(props.match.params.id))
@@ -23,7 +24,7 @@ const ProductScreen = (props) => {
         <>
         <Link to='/' className=" btn btn-light my-3">Go back</Link>
         {
-            loading ? <Loader></Loader> : error ? <Message variant="danger" message={error}></Message>: (
+            loading ? <Loader></Loader> : error ? <Message variant="danger">{ error }</Message>: (
                 <Row>
                     <Col md={6}>
                         <Image src={product.image} alt={product.name} fluid />
@@ -60,7 +61,7 @@ const ProductScreen = (props) => {
                                     <Row>
                                         <Col>Qty:</Col>
                                         <Col>
-                                            <Form.Control as="select">
+                                            <Form.Control as="select" onChange={(e) => setQty(e.target.value)}>
                                                 {
                                                     [...Array(product.countInStock).keys()].map(x => (
                                                         <option key={ x+1 } value={x+1}>{ x+1 }</option>
@@ -72,7 +73,7 @@ const ProductScreen = (props) => {
                                 </ListGroup.Item>
                             )}
                             <ListGroup>
-                                <Button className="btn btn-block" type="button" disabled={product.countInStock === 0}>Add to cart</Button>
+                                <Button className="btn btn-block" onClick={() => props.history.push(`/cart/${product._id}?qty=${qty}`)}  type="button" disabled={product.countInStock === 0}>Add to cart</Button>
                             </ListGroup>
                             </ListGroup>
                         </Card>
