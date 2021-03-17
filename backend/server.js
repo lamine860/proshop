@@ -6,6 +6,7 @@ import connect from './config/db.js'
 import products from './data/products.js'
 import { ErrorHandler, notFound } from './middleware/ErrorMiddleware.js'
 import productRouter from './routes/productRoute.js'
+import userRouter from './routes/userRoute.js'
 
 dotenv.config()
 connect()
@@ -13,8 +14,10 @@ const PORT = process.env.PORT || 5000
 const HOST = process.env.HOST
 const app = express()
 
+app.use(express.json())
 //Routes
 app.use('/api/products', productRouter)
+app.use('/api/user', userRouter)
 
 
 app.use(notFound)
