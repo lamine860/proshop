@@ -22,11 +22,11 @@ const HomeScreen = () => {
                     <h1>Latest product</h1>
                     <Row>
                     {
-                        products.map(product => (
+                        products.length > 0 ? products.map(product => (
                             <Col xs={12} sm={6} md={4} lg={3} key={ product.name }>
                                 <Product product={product} />
                             </Col>
-                        ))
+                        )): 'Sorry no item yet'
                     }
                     </Row>
                 </>

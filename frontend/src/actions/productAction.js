@@ -8,7 +8,8 @@ export const productListAction = () => async (dispatch) => {
         const  {data} =  await axios.get(endPoint)
         dispatch({type: actionTypes.PRODUCT_LIST_SUCCESS, payload: data})
     }catch(error) {
-        dispatch({type: actionTypes.PRODUCT_LIST_FAIL, payload: error.response.data ? error.response.data.message : error.message})
+        dispatch({type: actionTypes.PRODUCT_LIST_FAIL, payload: 
+            error.response.data ? error.response.data.message ? error.response.data.message : 'Unknown error occured' : error.message})
     }
     
 }
