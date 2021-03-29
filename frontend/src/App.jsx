@@ -7,7 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import LoginScreen from "./screens/LoginScreen";
+// import LoginScreen from "./screens/LoginScreen";
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
         <Route path="/products/:id" exact={true} component={ProductScreen} />
         <Route path="/cart/:id/:qty?" exact={true} component={CartScreen} />
         <Route path="/register" exact={true} component={RegisterScreen} />
-        <Route path="/login" exact={true} component={LoginScreen} />
+        {/* <Route path="/login" exact={true} component={LoginScreen} /> */}
       </Container>
      </main>
       <footer className="container text-center">
