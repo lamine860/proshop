@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {Card, Form, Button, Row, Col} from 'react-bootstrap'
 import { userRegisterAction } from './../actions/userAction';
 import Message from '../components/common/Message'
 
 
-const RegisterScreen = (props) => {
+const RegisterScreen = ({history, location}) => {
+    const redirect = location.search ? location.search.split('=')[1] : '/'
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -17,6 +18,12 @@ const RegisterScreen = (props) => {
         const user  = {name, email, password, passwordConfirm}
         dispatch(userRegisterAction(user))
     }
+    useEffect(() => {
+        if(userRegister.userInfo || localStorage.getItem('userInfo')){
+            history.push(redirect)
+        }
+
+    }, [history, userRegister, redirect])
 
     return (
         <Row className="justify-content-md-center">
