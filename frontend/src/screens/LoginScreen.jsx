@@ -4,6 +4,7 @@ import { Card, Form, Button, Row, Col } from "react-bootstrap";
 import { userLoginAction } from "./../actions/userAction";
 import Message from "../components/common/Message";
 import InputField from "../components/common/InputField";
+import { Link } from 'react-router-dom';
 const LoginScreen = ({history, location}) => {
     const redirect = location.search ? location.search.split('=')[1] : '/'
     const [email, setEmail] = useState('')
@@ -47,6 +48,7 @@ const LoginScreen = ({history, location}) => {
                 </Button>
               </Form.Group>
             </Form>
+            <div>New Customer ? <Link to="/register">Create an account</Link> </div>
           </Card.Body>
         </Card>
       </Col>

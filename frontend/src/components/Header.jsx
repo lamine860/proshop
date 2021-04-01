@@ -32,7 +32,7 @@ const Header = props => {
           </Form>
           <Nav className="ml-auto">
             <LinkContainer to="/cart">
-              <Nav.Link> <i className="fas fa-shopping-cart"></i> Cart</Nav.Link>
+              <Nav.Link><i className="fas fa-shopping-cart"></i> Cart</Nav.Link>
             </LinkContainer>
             {userInfo ? (
               <NavDropdown title={userInfo.name} id="username">
@@ -46,10 +46,10 @@ const Header = props => {
             ) : (
               <>
                 <LinkContainer to="/register">
-                  <Nav.Link>Register</Nav.Link>
+                  <Nav.Link><i className="fas fa-user"></i>Register</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/login">
-                  <Nav.Link>Login</Nav.Link>
+                  <Nav.Link><i className="fas fa-user"></i>Login</Nav.Link>
                 </LinkContainer>
               </>
             )}
