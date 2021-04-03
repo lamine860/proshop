@@ -6,7 +6,7 @@ import Message from "../components/common/Message";
 import InputField from "../components/common/InputField";
 import { Link } from 'react-router-dom';
 const LoginScreen = ({history, location}) => {
-    const redirect = location.search ? location.search.split('=')[1] : '/'
+    const redirect = location.search ? location.search.split('=')[1] : '/shipping'
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const handleChange = (e) => {

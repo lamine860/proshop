@@ -30,7 +30,7 @@ const ProfileScreen = ({location, history}) => {
   }
   return (
     <Row>
-      <Col md={6}>
+      <Col md={4}>
         <h3>Your Profile</h3>
         <Card>
           <Card.Header>
@@ -76,7 +76,7 @@ const ProfileScreen = ({location, history}) => {
           </Card.Body>
         </Card>
       </Col>
-      <Col md={6}>
+      <Col md={8}>
         <h3>Your Orders</h3>
       </Col>
     </Row>
