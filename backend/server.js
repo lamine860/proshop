@@ -7,6 +7,7 @@ import products from './data/products.js'
 import { ErrorHandler, notFound } from './middleware/ErrorMiddleware.js'
 import productRouter from './routes/productRoute.js'
 import userRouter from './routes/userRoute.js'
+import orderRouter from './routes/orderRoute.js'
 
 dotenv.config()
 connect()
@@ -18,6 +19,8 @@ app.use(express.json())
 //Routes
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
+app.use('/api/orders', orderRouter)
+
 
 
 app.use(notFound)
