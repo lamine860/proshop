@@ -14,7 +14,6 @@ connect()
 const PORT = process.env.PORT || 5000
 const HOST = process.env.HOST
 const app = express()
-
 app.use(express.json())
 //Routes
 app.use('/api/products', productRouter)

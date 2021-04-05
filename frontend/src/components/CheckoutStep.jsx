@@ -21,8 +21,8 @@ const CheckoutStep = ({ step1, step2, step3, step4 }) => {
         </LinkContainer>
       </Nav.Item>
       <Nav.Item>
-        <LinkContainer to="/order">
-            {step4 ? (<Nav.Link>Order</Nav.Link>) : (<Nav.Link disabled>Order</Nav.Link>)}
+        <LinkContainer to="/placeorder">
+            {step4 ? (<Nav.Link>Place order</Nav.Link>) : (<Nav.Link disabled>Order</Nav.Link>)}
         </LinkContainer>
       </Nav.Item>
     </Nav>
