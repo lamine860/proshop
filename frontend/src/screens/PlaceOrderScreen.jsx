@@ -1,18 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { ListGroup, Row, Col, Image, Card, Button } from "react-bootstrap";
 import CheckoutStep from "../components/CheckoutStep";
 import Message from "../components/common/Message";
 import { Link } from "react-router-dom";
+import { orderCreateAction } from "./../actions/orderAction";
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
+import { USER_DETAILS_RESET } from './../constants/userConstant';
 
-const PlaceOrderScreen = ({history}) => {
-  let error = null;
-  const cart = useSelector((state) => state.cart);
-  
+const PlaceOrderScreen = ({ history }) => {
+  const cart = useSelector((state) => state.cart);  
   if (!cart.shippingAddress.address) {
-    history.push('/shipping')
+    history.push("/shipping");
   } else if (!cart.paymentMethod) {
-    history.push('/payment')
+    history.push("/payment");
   }
   const addDecimals = (num) => (Math.round(num * 100) / 100).toFixed(2);
   cart.itemsPrice = cart.cartItems.reduce(
@@ -24,6 +25,30 @@ const PlaceOrderScreen = ({history}) => {
   cart.totalPrice = addDecimals(
     +cart.itemsPrice + +cart.shippingPrice + +cart.taxPrice
   );
+  const dispacth = useDispatch();
+  const placeOrderHandler = () => {
+    dispacth(
+      orderCreateAction({
+        orderItems: cart.cartItems,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+        itemsPrice: cart.itemsPrice,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod
+      })
+    );
+  };
+  const {error, order, loading, success} = useSelector(state => state.orderCreate)
+
+  useEffect(() => {
+    if(success){
+      history.push(`/order/${order._id}`)
+      dispacth({type: ORDER_CREATE_RESET})
+      dispacth({type: USER_DETAILS_RESET})
+    }
+
+  }, [order, history, success, dispacth])
   return (
     <div>
       <CheckoutStep step1 step2 step3 step4 />
@@ -99,15 +124,24 @@ const PlaceOrderScreen = ({history}) => {
                 <Col>Tax</Col>
                 <Col>{cart.taxPrice}</Col>
               </ListGroup.Item>
-              {error && (<ListGroup.Item>
-                  <Message variant="danger">{error }</Message>
-              </ListGroup.Item>)}
+              {error && (
+                <ListGroup.Item>
+                  <Message variant="danger">{error}</Message>
+                </ListGroup.Item>
+              )}
               <ListGroup.Item>
                 <Col>Total</Col>
                 <Col>{cart.totalPrice}</Col>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Button className="btn-block" disabled={cart.cartItems.length === 0} type="button">Place Order</Button>
+                <Button
+                  className="btn-block"
+                  onClick={placeOrderHandler}
+                  disabled={cart.cartItems.length === 0 || loading}
+                  type="button"
+                >
+                  Place Order
+                </Button>
               </ListGroup.Item>
             </ListGroup>
           </Card>
