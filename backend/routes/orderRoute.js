@@ -1,10 +1,15 @@
-import express from 'express'
-import { protectMiddleware } from '../middleware/AuthMiddleware.js';
-import { placeOrder } from './../controllers/orderController.js';
+import express from "express";
+import { protectMiddleware } from "../middleware/AuthMiddleware.js";
+import {
+  placeOrder,
+  orderDetails,
+  updateOrderToPaid,
+} from "./../controllers/orderController.js";
 
-const router = express.Router()
+const router = express.Router();
 
+router.post("/", protectMiddleware, placeOrder);
+router.get("/:orderId", protectMiddleware, orderDetails);
+router.put("/:orderId/pay", protectMiddleware, updateOrderToPaid);
 
-router.post('/', protectMiddleware,placeOrder)
-
-export default router
+export default router;

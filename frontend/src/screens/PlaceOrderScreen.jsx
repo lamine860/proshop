@@ -16,10 +16,10 @@ const PlaceOrderScreen = ({ history }) => {
     history.push("/payment");
   }
   const addDecimals = (num) => (Math.round(num * 100) / 100).toFixed(2);
-  cart.itemsPrice = cart.cartItems.reduce(
+  cart.itemsPrice = addDecimals(cart.cartItems.reduce(
     (acc, item) => (acc += item.price * item.qty),
     0
-  );
+  ));
   cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 100;
   cart.taxPrice = addDecimals(cart.itemsPrice * 0.15);
   cart.totalPrice = addDecimals(
@@ -40,7 +40,6 @@ const PlaceOrderScreen = ({ history }) => {
     );
   };
   const {error, order, loading, success} = useSelector(state => state.orderCreate)
-
   useEffect(() => {
     if(success){
       history.push(`/order/${order._id}`)
