@@ -25,7 +25,7 @@ export const cartReducer = (
         ),
       };
     case actionTypes.CLEAR_CART:
-      return {};
+      return { ...state, cartItems: []};
     case actionTypes.CART_SAVE_SHIPPING_ADDRESS:
       return {
         ...state,

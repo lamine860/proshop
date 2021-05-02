@@ -24,7 +24,7 @@ const CartScreen = ({location, match, history}) => {
 
     }, [dispatch, match, qty])
     const {cartItems}  = useSelector(state => state.cart)
-
+    console.log(cartItems)
     return (
         <Row>
             <Col md={8}>

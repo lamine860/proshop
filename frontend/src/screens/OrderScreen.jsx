@@ -8,22 +8,28 @@ import Message from "../components/common/Message";
 import PayPalButton from "../components/PayPalButton";
 import { ORDER_PAY_RESET } from "../constants/orderConstants";
 
-const OrderScreen = ({ match, history }) => {
+const OrderScreen = ({ match, history}) => {
+
   const orderId = match.params.orderId;
   const { loading, error, order } = useSelector((state) => state.orderDetails);
+  const { userInfo } = useSelector((state) => state.userLogin);
   const { success: successPay, loading: loadinPay } = useSelector(
     (state) => state.orderPay
   );
+  console.log(successPay, loadinPay);
   const dispatch = useDispatch();
   const handleSuccessPayment = (details) => {
-    dispatch(orderPayAction(order._id, details));
+    dispatch(orderPayAction(orderId, details));
   };
   useEffect(() => {
-    if (!order || successPay) {
+    if(!userInfo){
+      history.push('/login')
+    }
+    if (!order || order._id !== orderId || successPay) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(orderDetailsAction(orderId));
     }
-  }, [dispatch, orderId, successPay, order]);
+  }, [dispatch, orderId, successPay, order, history, userInfo]);
   const addDecimals = (num) => (Math.round(num * 100) / 100).toFixed(2);
 
   return (
@@ -137,17 +143,25 @@ const OrderScreen = ({ match, history }) => {
                   <Col>{order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                <PayPalButton
-                  amount={order.totalPrice}
-                  onSuccess={handleSuccessPayment}
-                />
-              </ListGroup.Item>
-              <ListGroup.Item className="text-center">
-                <Button variant="secondary" className="btn-block" type="button">
-                  Set as delivered
-                </Button>
-              </ListGroup.Item>
+              {!order.isPaid && (
+                <ListGroup.Item>
+                  <PayPalButton
+                    amount={order.totalPrice}
+                    onSuccess={handleSuccessPayment}
+                  />
+                </ListGroup.Item>
+              )}
+              {order.user.isAdmin && (
+                <ListGroup.Item className="text-center">
+                  <Button
+                    variant="secondary"
+                    className="btn-block"
+                    type="button"
+                  >
+                    Set as delivered
+                  </Button>
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Col>
         </Row>

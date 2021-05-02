@@ -1,10 +1,17 @@
 import React from 'react';
-import {Spinner} from 'react-bootstrap'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader  from "react-loader-spinner";
 
-const Loader = () => {
+/* eslint-disable */
+export default function (){
     return (  
-        <Spinner animation="border" role="status"><span className="sr-only">Loading...</span></Spinner>
-    );
+        <Loader
+        className="text-center"
+        type="TailSpin"
+        color="#00BFFF"
+        height={80}
+        width={80}
+      />
+    )
 }
  
-export default Loader;

@@ -42,9 +42,9 @@ const PlaceOrderScreen = ({ history }) => {
   const {error, order, loading, success} = useSelector(state => state.orderCreate)
   useEffect(() => {
     if(success){
-      history.push(`/order/${order._id}`)
       dispacth({type: ORDER_CREATE_RESET})
       dispacth({type: USER_DETAILS_RESET})
+      history.push(`/order/${order._id}`)
     }
 
   }, [order, history, success, dispacth])
