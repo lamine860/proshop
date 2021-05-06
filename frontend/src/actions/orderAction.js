@@ -11,6 +11,9 @@ import {
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_DETAILS_RESET,
+  ORDER_LIST_MY_SUCCESS,
+  ORDER_LIST_MY_FAIL,
+  ORDER_LIST_MY_REQUEST,
 } from "./../constants/orderConstants";
 
 const API_ENDPOINT = "/api/orders";
@@ -29,7 +32,6 @@ export const orderCreateAction = (order) => async (dispatch, getState) => {
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
     dispatch({ type: CLEAR_CART });
     localStorage.removeItem("cartItems");
-    // localStorage.removeItem("shippingAddress");
   } catch (e) {
     dispatch({ type: ORDER_CREATE_FAIL, payload: e.response.data });
   }
@@ -75,9 +77,29 @@ export const orderPayAction = (orderId, paymentResult) => async (
     dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
     dispatch({ type: ORDER_DETAILS_RESET });
   } catch (e) {
-    console.log(e.response)
+    console.log(e.response);
     dispatch({
       type: ORDER_PAY_FAIL,
+      payload: JSON.parse(e.response.data.message),
+    });
+  }
+};
+
+export const orderListMyAction = () => async (dispatch, getState) => {
+  dispatch({ type: ORDER_LIST_MY_REQUEST });
+  const { userInfo } = getState().userLogin;
+  const brearer = userInfo ?  `Bearer ${userInfo.token}` : 'Bearer'
+  const config = {
+    headers: {
+      Authorization: brearer
+    },
+  };
+  try {
+    const { data } = await axios.get(`${API_ENDPOINT}/orders/myorders`, config);
+    dispatch({ type: ORDER_LIST_MY_SUCCESS, payload: data });
+  } catch (e) {
+    dispatch({
+      type: ORDER_LIST_MY_FAIL,
       payload: JSON.parse(e.response.data.message),
     });
   }
